@@ -7,7 +7,8 @@ Autor nemá žádné spojení s firmou Ecomail ani s Nette Framework.
 
 Požadavky
 ------------
-- Nette 2.3 a vyšší
+- Nette 2.3 a vyšší (v0.1)
+- PHP 8 a Nette 3 (dev-main)
 
 Instalace
 ------------
@@ -15,7 +16,7 @@ Instalace
 Nejjednodušším způsobem instalace je přidat do souboru `composer.json`:
 ```
 	"require": {
-		"haltuf/ecomail-nette": "dev-master"
+		"haltuf/ecomail-nette": "dev-main"
 	}
 ```
 
