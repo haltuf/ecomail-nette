@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Ecomail;
 
@@ -7,20 +7,14 @@ use Nette\DI\CompilerExtension;
 
 class Extension extends CompilerExtension
 {
-
-	/** @var array */
-	private $defaults = array(
-		'key' => NULL,
-	);
-
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$container = $this->getContainerBuilder();
-		$config = $this->getConfig($this->defaults);
+		$config = $this->getConfig();
 
 		$service = $container->addDefinition($this->prefix('service'))
-			->setClass('Ecomail\Ecomail', array(
+			->setFactory('Ecomail\Ecomail', [
 				$config['key'],
-			));
+			]);
 	}
 }
