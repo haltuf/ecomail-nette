@@ -38,7 +38,7 @@ class Ecomail
 		$result = curl_exec($ch);
 		curl_close($ch);
 		
-		return json_decode($result);
+		return json_decode($result, true);
 	}
 	
 	public function getLists(): array
@@ -73,23 +73,7 @@ class Ecomail
 	{
 		$url = self::URL . 'lists/' . $list_id . '/subscribe';
 		$post = json_encode([
-			'subscriber_data' => [
-				'name' => $data['name'],
-				'surname' => $data['surname'],
-				'email' => $data['email'],
-				'vokativ' => $data['vokativ'],
-				'vokativ_s' => $data['vokativ_s'],
-				'company' => $data['company'],
-				'city' => $data['city'],
-				'street' => $data['street'],
-				'zip' => $data['zip'],
-				'country' => $data['country'],
-				'phone' => $data['phone'],
-				'pretitle' => $data['pretitle'],
-				'surtitle' => $data['surtitle'],
-				'birthday' => $data['birthday'],
-				'custom_fields' => (array)$data['custom_fields'],
-			],
+			'subscriber_data' => $data,
 			'trigger_autoresponders' => $trigger_autoresponders,
 			'update_existing' => $update_existing,
 			'resubscribe' => $resubscribe,
@@ -109,24 +93,12 @@ class Ecomail
 	public function updateSubscriber(string $list_id, array $data = []): array
 	{
 		$url = self::URL . 'lists/' . $list_id . '/update-subscriber';
+		$email = $data['email'];
+		unset($data['email']);
+
 		$post = json_encode([
-			'email' => $data['email'],
-			'subscriber_data' => [
-				'name' => $data['name'],
-				'surname' => $data['surname'],
-				'vokativ' => $data['vokativ'],
-				'vokativ_s' => $data['vokativ_s'],
-				'company' => $data['company'],
-				'city' => $data['city'],
-				'street' => $data['street'],
-				'zip' => $data['zip'],
-				'country' => $data['country'],
-				'phone' => $data['phone'],
-				'pretitle' => $data['pretitle'],
-				'surtitle' => $data['surtitle'],
-				'birthday' => $data['birthday'],
-				'custom_fields' => (array)$data['custom_fields'],
-			],
+			'email' => $email,
+			'subscriber_data' => $data,
 		]);
 		
 		return $this->sendRequest($url, 'PUT', $post);
