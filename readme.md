@@ -7,7 +7,7 @@ Autor nemá žádné spojení s firmou Ecomail ani s Nette Framework.
 
 Požadavky
 ------------ 
-- PHP 8 a Nette 3 (v0.2)
+- PHP 7.4-8.4 a Nette 3 (v0.2)
 
 Instalace
 ------------

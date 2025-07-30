@@ -12,7 +12,6 @@ class Bootstrap
 	{
 		$configurator = new Configurator;
 
-
 		$configurator->setTimeZone('Europe/Prague');
 		$configurator->setTempDirectory(self::getTempDir());
 
@@ -25,7 +24,6 @@ class Bootstrap
 
 		return $configurator;
 	}
-
 
 	public static function bootForTests(): Configurator
 	{

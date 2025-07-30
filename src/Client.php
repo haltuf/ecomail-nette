@@ -4,9 +4,11 @@ namespace Ecomail;
 
 class Client
 {
-    public function __construct(
-        private string $key,
-    ) {}
+	private string $key;
+
+    public function __construct(string $key) {
+		$this->key = $key;
+	}
 
     public function sendRequest(string $url, string $request = 'POST', string $data = ''): array
     {

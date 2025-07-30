@@ -4,15 +4,15 @@ namespace Ecomail;
 
 class Ecomail
 {
+	private string $key;
+
 	const URL = 'http://api2.ecomailapp.cz/';
 
     private Client $client;
 
-	public function __construct(
-        private string $key,
-        ?Client $client = null,
-    )
+	public function __construct(string $key, ?Client $client = null)
     {
+		$this->key = $key;
 		$this->client = $client ?? new Client($this->key);
 	}
 	
