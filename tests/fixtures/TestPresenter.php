@@ -7,7 +7,7 @@ use Nette\DI\Container;
 
 class TestPresenter extends Presenter
 {
-	#[Inject]
+	#[Inject] /** @inject - for PHP7.4 */
 	public Ecomail $ecomail;
 
 	#[Inject]

@@ -34,7 +34,7 @@ ecomail:
 Službu si injectněte do Presenteru:
 
 ```php
-	#[Inject]
+	#[Inject] /** @inject use this for PHP 7.4 */
 	public Ecomail\Ecomail $ecomail;
 ```
 
