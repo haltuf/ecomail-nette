@@ -1,0 +1,9 @@
+application:
+	mapping:
+		*: *Presenter
+
+extensions:
+	ecomail: Ecomail\Extension
+
+ecomail:
+	key: YOUR_KEY_HERE
