@@ -4,69 +4,44 @@ namespace Ecomail;
 
 class Ecomail
 {
-	private string $key;
-	
 	const URL = 'http://api2.ecomailapp.cz/';
 
-	public function __construct(string $key)
+    private Client $client;
+
+	public function __construct(
+        private string $key,
+        ?Client $client = null,
+    )
     {
-		$this->key = $key;
-	}
-	
-	private function sendRequest(string $url, string $request = 'POST', string $data = ''): array
-	{
-		$http_headers = array();
-		$http_headers[] = "key: " . $this->key;
-		$http_headers[] = "Content-Type: application/json";
-		
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_HEADER, FALSE);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $http_headers);
-		
-		if (!empty($data)) {
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-			
-			if ($request === 'POST') {
-				curl_setopt($ch, CURLOPT_POST, TRUE);
-			} else {
-				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $request);
-			}
-		}
-		
-		$result = curl_exec($ch);
-		curl_close($ch);
-		
-		return json_decode($result, true);
+		$this->client = $client ?? new Client($this->key);
 	}
 	
 	public function getLists(): array
 	{
 		$url = self::URL . 'lists';
 		
-		return $this->sendRequest($url);
+		return $this->client->sendRequest($url);
 	}
 
 	public function getList(string $id): array
 	{
 		$url = self::URL . 'lists/' . $id;
 		
-		return $this->sendRequest($url);
+		return $this->client->sendRequest($url);
 	}
 	
 	public function getSubscribers(string $list_id, int $page = 1): array
 	{
 		$url = self::URL . 'lists/' . $list_id . '/subscribers' . ($page > 1 ? '?page=' . $page : '');
 		
-		return $this->sendRequest($url);
+		return $this->client->sendRequest($url);
 	}
 	
 	public function getSubscriber(string $list_id, string $email): array
 	{
 		$url = self::URL . 'lists/' . $list_id . '/subscriber/' . $email;
 		
-		return $this->sendRequest($url);
+		return $this->client->sendRequest($url);
 	}
 	
 	public function addSubscriber(string $list_id, array $data = [], bool $trigger_autoresponders = false, bool $update_existing = true, bool $resubscribe = false): array
@@ -79,7 +54,7 @@ class Ecomail
 			'resubscribe' => $resubscribe,
 		]);
 		
-		return $this->sendRequest($url, 'POST', $post);
+		return $this->client->sendRequest($url, 'POST', $post);
 	}
 	
 	public function deleteSubscriber(string $list_id, string $email): array
@@ -87,7 +62,7 @@ class Ecomail
 		$url = self::URL . 'lists/' . $list_id . '/unsubscribe';
 		$post = json_encode(['email' => $email]);
 		
-		return $this->sendRequest($url, 'DELETE', $post);
+		return $this->client->sendRequest($url, 'DELETE', $post);
 	}
 	
 	public function updateSubscriber(string $list_id, array $data = []): array
@@ -101,6 +76,104 @@ class Ecomail
 			'subscriber_data' => $data,
 		]);
 		
-		return $this->sendRequest($url, 'PUT', $post);
+		return $this->client->sendRequest($url, 'PUT', $post);
+	}
+
+	// Campaigns
+	public function getCampaigns(): array
+	{
+		$url = self::URL . 'campaigns';
+		return $this->client->sendRequest($url);
+	}
+
+	public function getCampaign(string $id): array
+	{
+		$url = self::URL . 'campaigns/' . $id;
+		return $this->client->sendRequest($url);
+	}
+
+	public function createCampaign(array $data): array
+	{
+		$url = self::URL . 'campaigns';
+		$post = json_encode($data);
+		return $this->client->sendRequest($url, 'POST', $post);
+	}
+
+	public function updateCampaign(string $id, array $data): array
+	{
+		$url = self::URL . 'campaigns/' . $id;
+		$post = json_encode($data);
+		return $this->client->sendRequest($url, 'PUT', $post);
+	}
+
+	public function deleteCampaign(string $id): array
+	{
+		$url = self::URL . 'campaigns/' . $id;
+		return $this->client->sendRequest($url, 'DELETE');
+	}
+
+	public function sendCampaign(string $id): array
+	{
+		$url = self::URL . 'campaigns/' . $id . '/send';
+		return $this->client->sendRequest($url, 'POST');
+	}
+
+	// Templates
+	public function getTemplates(): array
+	{
+		$url = self::URL . 'templates';
+		return $this->client->sendRequest($url);
+	}
+
+	public function getTemplate(string $id): array
+	{
+		$url = self::URL . 'templates/' . $id;
+		return $this->client->sendRequest($url);
+	}
+
+	// Workflows
+	public function getWorkflows(): array
+	{
+		$url = self::URL . 'workflows';
+		return $this->client->sendRequest($url);
+	}
+
+	public function getWorkflow(string $id): array
+	{
+		$url = self::URL . 'workflows/' . $id;
+		return $this->client->sendRequest($url);
+	}
+
+	// Forms
+	public function getForms(): array
+	{
+		$url = self::URL . 'forms';
+		return $this->client->sendRequest($url);
+	}
+
+	public function getForm(string $id): array
+	{
+		$url = self::URL . 'forms/' . $id;
+		return $this->client->sendRequest($url);
+	}
+
+	// Account
+	public function getAccount(): array
+	{
+		$url = self::URL . 'account';
+		return $this->client->sendRequest($url);
+	}
+
+	// Tags
+	public function getTags(): array
+	{
+		$url = self::URL . 'tags';
+		return $this->client->sendRequest($url);
+	}
+
+	public function getTag(string $id): array
+	{
+		$url = self::URL . 'tags/' . $id;
+		return $this->client->sendRequest($url);
 	}
 }
