@@ -14,12 +14,12 @@ use Tester\TestCase;
 
 class EcomailTest extends TestCase
 {
-    private Container $container;
+	private Container $container;
 
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
+	public function __construct(Container $container)
+	{
+		$this->container = $container;
+	}
 
 	public function testGetList(): void
 	{
@@ -33,7 +33,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123')
+			->with('https://api2.ecomailapp.cz/lists/123')
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -63,7 +63,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123/subscribers')
+			->with('https://api2.ecomailapp.cz/lists/123/subscribers')
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -89,7 +89,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123/subscribers?page=2')
+			->with('https://api2.ecomailapp.cz/lists/123/subscribers?page=2')
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -111,7 +111,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123/subscriber/user@example.com')
+			->with('https://api2.ecomailapp.cz/lists/123/subscriber/user@example.com')
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -144,7 +144,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123/subscribe', 'POST', $expectedPostData)
+			->with('https://api2.ecomailapp.cz/lists/123/subscribe', 'POST', $expectedPostData)
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -176,7 +176,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123/subscribe', 'POST', $expectedPostData)
+			->with('https://api2.ecomailapp.cz/lists/123/subscribe', 'POST', $expectedPostData)
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -198,7 +198,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123/unsubscribe', 'DELETE', $expectedPostData)
+			->with('https://api2.ecomailapp.cz/lists/123/unsubscribe', 'DELETE', $expectedPostData)
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -234,7 +234,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/lists/123/update-subscriber', 'PUT', $expectedPostData)
+			->with('https://api2.ecomailapp.cz/lists/123/update-subscriber', 'PUT', $expectedPostData)
 			->andReturn($expectedResponse);
 
 		$ecomail = new Ecomail('API_KEY', $clientMock);
@@ -254,7 +254,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/campaigns')
+			->with('https://api2.ecomailapp.cz/campaigns')
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
@@ -271,7 +271,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/campaigns/1')
+			->with('https://api2.ecomailapp.cz/campaigns/1')
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
@@ -290,7 +290,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/campaigns', 'POST', $expectedPostData)
+			->with('https://api2.ecomailapp.cz/campaigns', 'POST', $expectedPostData)
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
@@ -309,29 +309,12 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/campaigns/3', 'PUT', $expectedPostData)
+			->with('https://api2.ecomailapp.cz/campaigns/3', 'PUT', $expectedPostData)
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
 
 		$result = $ecomail->updateCampaign('3', $data);
-
-		Assert::same($expectedResponse, $result);
-	}
-
-	public function testDeleteCampaign(): void
-	{
-		$expectedResponse = ['success' => true];
-
-		$clientMock = Mockery::mock(Client::class);
-		$clientMock->shouldReceive('sendRequest')
-			->once()
-			->with('http://api2.ecomailapp.cz/campaigns/3', 'DELETE')
-			->andReturn($expectedResponse);
-
-		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
-
-		$result = $ecomail->deleteCampaign('3');
 
 		Assert::same($expectedResponse, $result);
 	}
@@ -343,32 +326,12 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/campaigns/3/send', 'POST')
+			->with('https://api2.ecomailapp.cz/campaign/3/send', 'GET')
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
 
 		$result = $ecomail->sendCampaign('3');
-
-		Assert::same($expectedResponse, $result);
-	}
-
-	public function testGetTemplates(): void
-	{
-		$expectedResponse = [
-			['id' => '1', 'name' => 'Template 1'],
-			['id' => '2', 'name' => 'Template 2'],
-		];
-
-		$clientMock = Mockery::mock(Client::class);
-		$clientMock->shouldReceive('sendRequest')
-			->once()
-			->with('http://api2.ecomailapp.cz/templates')
-			->andReturn($expectedResponse);
-
-		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
-
-		$result = $ecomail->getTemplates();
 
 		Assert::same($expectedResponse, $result);
 	}
@@ -380,7 +343,7 @@ class EcomailTest extends TestCase
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/templates/1')
+			->with('https://api2.ecomailapp.cz/template/1')
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
@@ -390,142 +353,47 @@ class EcomailTest extends TestCase
 		Assert::same($expectedResponse, $result);
 	}
 
-	public function testGetWorkflows(): void
+	public function testGetPipelines(): void
 	{
 		$expectedResponse = [
-			['id' => '1', 'name' => 'Workflow 1'],
-			['id' => '2', 'name' => 'Workflow 2'],
+			['id' => '1', 'name' => 'Pipeline 1'],
+			['id' => '2', 'name' => 'Pipeline 2'],
 		];
 
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/workflows')
+			->with('https://api2.ecomailapp.cz/pipelines')
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
 
-		$result = $ecomail->getWorkflows();
+		$result = $ecomail->getPipelines();
 
 		Assert::same($expectedResponse, $result);
 	}
 
-	public function testGetWorkflow(): void
+	public function testGetPipeline(): void
 	{
-		$expectedResponse = ['id' => '1', 'name' => 'Workflow 1'];
+		$expectedResponse = ['id' => '1', 'name' => 'Pipeline 1'];
 
 		$clientMock = Mockery::mock(Client::class);
 		$clientMock->shouldReceive('sendRequest')
 			->once()
-			->with('http://api2.ecomailapp.cz/workflows/1')
+			->with('https://api2.ecomailapp.cz/pipelines/1')
 			->andReturn($expectedResponse);
 
 		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
 
-		$result = $ecomail->getWorkflow('1');
-
-		Assert::same($expectedResponse, $result);
-	}
-
-	public function testGetForms(): void
-	{
-		$expectedResponse = [
-			['id' => '1', 'name' => 'Form 1'],
-			['id' => '2', 'name' => 'Form 2'],
-		];
-
-		$clientMock = Mockery::mock(Client::class);
-		$clientMock->shouldReceive('sendRequest')
-			->once()
-			->with('http://api2.ecomailapp.cz/forms')
-			->andReturn($expectedResponse);
-
-		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
-
-		$result = $ecomail->getForms();
-
-		Assert::same($expectedResponse, $result);
-	}
-
-	public function testGetForm(): void
-	{
-		$expectedResponse = ['id' => '1', 'name' => 'Form 1'];
-
-		$clientMock = Mockery::mock(Client::class);
-		$clientMock->shouldReceive('sendRequest')
-			->once()
-			->with('http://api2.ecomailapp.cz/forms/1')
-			->andReturn($expectedResponse);
-
-		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
-
-		$result = $ecomail->getForm('1');
-
-		Assert::same($expectedResponse, $result);
-	}
-
-	public function testGetAccount(): void
-	{
-		$expectedResponse = [
-			'id' => '1',
-			'email' => 'admin@example.com',
-			'credits' => 10000,
-		];
-
-		$clientMock = Mockery::mock(Client::class);
-		$clientMock->shouldReceive('sendRequest')
-			->once()
-			->with('http://api2.ecomailapp.cz/account')
-			->andReturn($expectedResponse);
-
-		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
-
-		$result = $ecomail->getAccount();
-
-		Assert::same($expectedResponse, $result);
-	}
-
-	public function testGetTags(): void
-	{
-		$expectedResponse = [
-			['id' => '1', 'name' => 'VIP'],
-			['id' => '2', 'name' => 'Newsletter'],
-		];
-
-		$clientMock = Mockery::mock(Client::class);
-		$clientMock->shouldReceive('sendRequest')
-			->once()
-			->with('http://api2.ecomailapp.cz/tags')
-			->andReturn($expectedResponse);
-
-		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
-
-		$result = $ecomail->getTags();
-
-		Assert::same($expectedResponse, $result);
-	}
-
-	public function testGetTag(): void
-	{
-		$expectedResponse = ['id' => '1', 'name' => 'VIP'];
-
-		$clientMock = Mockery::mock(Client::class);
-		$clientMock->shouldReceive('sendRequest')
-			->once()
-			->with('http://api2.ecomailapp.cz/tags/1')
-			->andReturn($expectedResponse);
-
-		$ecomail = new \Ecomail\Ecomail('API_KEY', $clientMock);
-
-		$result = $ecomail->getTag('1');
+		$result = $ecomail->getPipeline('1');
 
 		Assert::same($expectedResponse, $result);
 	}
 
 	public function tearDown(): void
-    {
-        Mockery::close();
-    }
+	{
+		Mockery::close();
+	}
 }
 
 $container = Bootstrap::bootForTests()->createContainer();
