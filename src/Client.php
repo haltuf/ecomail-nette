@@ -16,15 +16,15 @@ class Client
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $http_headers);
 
         if (!empty($data)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
             if ($request === 'POST') {
-                curl_setopt($ch, CURLOPT_POST, TRUE);
+                curl_setopt($ch, CURLOPT_POST, true);
             } else {
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $request);
             }

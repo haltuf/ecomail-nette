@@ -6,24 +6,16 @@ Jednoduchá implementace Ecomail API pro Nette, pokrývá jen část rozsahu cel
 Autor nemá žádné spojení s firmou Ecomail ani s Nette Framework.
 
 Požadavky
-------------
-- Nette 2.3 a vyšší (v0.1)
-- PHP 8 a Nette 3 (dev-main)
+------------ 
+- PHP 8 a Nette 3 (v0.2)
 
 Instalace
 ------------
 
-Nejjednodušším způsobem instalace je přidat do souboru `composer.json`:
-```
-	"require": {
-		"haltuf/ecomail-nette": "dev-main"
-	}
-```
-
-nebo pomocí příkazu
+Nejjednodušším způsobem instalace je přidat pomocí příkazu
 
 ```
-composer require haltuf/ecomail-nette:@dev
+composer require haltuf/ecomail-nette
 ```
 
 Použtí
@@ -42,8 +34,8 @@ ecomail:
 Službu si injectněte do Presenteru:
 
 ```php
-	/** @var \Ecomail\Ecomail @inject */
-	public $ecomail;
+	#[Inject]
+	public Ecomail\Ecomail $ecomail;
 ```
 
 A následně můžete používat:
@@ -63,7 +55,7 @@ A následně můžete používat:
 
 	// vytvoří nového odběratele, pokud existuje, tak ho upraví
 	// pro seznam všech možných hodnot se podívejte na kód funkce
-	$this->ecomail->addSubscriber(1, array('email' => 'example@example.com', FALSE, TRUE, TRUE));
+	$this->ecomail->addSubscriber(1, array('email' => 'example@example.com', false, true, true));
 
 	// smazání odběratele
 	$this->ecomail->deleteSubscriber(1, 'example@example.com');
